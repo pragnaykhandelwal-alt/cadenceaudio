@@ -4,17 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Cadence — your reading voice</title>
-    <meta name="description" content="Cadence is a private, offline-first text-to-speech reader for the documents and articles you actually want to hear." />
+    <meta name="description" content="Cadence is an open-source, offline-first text-to-speech reader. The voice runs on your Mac — nothing about your reading leaves it." />
     <meta name="theme-color" content="#0f0d0b" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='t' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='200' y2='200'%3E%3Cstop offset='0' stop-color='%234CBF82'/%3E%3Cstop offset='1' stop-color='%231E7247'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='200' height='200' rx='48' fill='url(%23t)'/%3E%3Cpath d='M 16 58 A 34 34 0 0 1 50 24 H 150 A 34 34 0 0 1 184 58 V 112 A 34 34 0 0 1 150 146 H 70 C 62 153 46 170 36 181 Q 44 166 50 146 A 34 34 0 0 1 16 112 Z' fill='%2317130f'/%3E%3Ctext x='100' y='124' text-anchor='middle' font-family='Georgia, serif' font-size='112' fill='none' stroke='%23EFF7F1' stroke-width='3.5'%3EC%3C/text%3E%3Cg fill='%234CBF82'%3E%3Crect x='68' y='77' width='9' height='16' rx='4.5'/%3E%3Crect x='82' y='70' width='9' height='30' rx='4.5'/%3E%3Crect x='96' y='80' width='9' height='10' rx='5'/%3E%3Crect x='110' y='67' width='9' height='36' rx='4.5'/%3E%3Crect x='124' y='78.5' width='9' height='13' rx='4.5'/%3E%3C/g%3E%3C/svg%3E" />
     <style>
       :root {
         --bg: #0f0d0b;
-        --tile: #17130f;
         --ink: #f2ece3;
         --dim: #b0a496;
+        --faint: #8a7f70;
         --green: #4cbf82;
-        --green-deep: #1e7247;
+        --hover: #58d693;
+        --line: rgba(242, 236, 227, 0.14);
       }
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html { color-scheme: dark; }
@@ -23,44 +24,95 @@
         background: var(--bg);
         color: var(--ink);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-        display: grid;
-        place-items: center;
-        padding: 48px 20px;
+        padding: 72px 24px 96px;
       }
-      .card { text-align: center; max-width: 560px; }
-      .mark { width: 96px; height: 96px; margin-bottom: 28px; }
+      .card { max-width: 620px; margin: 0 auto; }
+      .mark { width: 88px; height: 88px; margin-bottom: 26px; }
       h1 {
         font-family: Georgia, "Times New Roman", serif;
         font-weight: 400;
-        font-size: 56px;
+        font-size: 52px;
         line-height: 1.05;
         letter-spacing: 0.01em;
       }
       .tagline {
-        margin-top: 14px;
+        margin-top: 12px;
         font-family: Georgia, serif;
         font-style: italic;
-        font-size: 21px;
+        font-size: 20px;
         color: var(--dim);
       }
       .blurb {
-        margin-top: 26px;
-        font-size: 16.5px;
+        margin-top: 22px;
+        font-size: 16px;
         line-height: 1.65;
         color: var(--ink);
         opacity: 0.88;
       }
       .blurb b { font-weight: 600; color: var(--green); }
-      hr {
-        margin: 34px auto;
-        width: 72px;
-        border: none;
-        border-top: 1px solid rgba(242, 236, 227, 0.18);
+      /* --- source buttons --- */
+      .sources { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 13.5px;
+        letter-spacing: 0.02em;
       }
-      .meta { font-size: 13px; color: var(--dim); letter-spacing: 0.06em; }
+      .btn svg { width: 17px; height: 17px; fill: currentColor; }
+      .btn span b { font-weight: 600; }
+      .btn:hover { border-color: rgba(111, 211, 160, 0.55); color: #fff; }
+      .btn.primary { border-color: rgba(111, 211, 160, 0.45); background: rgba(49, 159, 102, 0.14); }
+      .btn.primary:hover { background: rgba(49, 159, 102, 0.26); }
+      /* --- sections --- */
+      section { margin-top: 48px; }
+      h2 {
+        font-family: Georgia, serif;
+        font-weight: 400;
+        font-size: 21px;
+        margin-bottom: 14px;
+        color: var(--ink);
+      }
+      .stack { border-left: 2px solid var(--line); padding-left: 18px; }
+      .stack p { margin: 0 0 10px; font-size: 14.5px; line-height: 1.55; color: var(--dim); }
+      .stack p:last-child { margin-bottom: 0; }
+      .stack code {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 12.5px;
+        color: var(--ink);
+        background: rgba(242, 236, 227, 0.07);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 1.5px 6px;
+        margin-right: 6px;
+      }
+      /* --- changelog --- */
+      .log { list-style: none; }
+      .log li {
+        font-size: 14.5px;
+        line-height: 1.55;
+        color: var(--dim);
+        padding: 9px 0;
+        border-top: 1px solid var(--line);
+      }
+      .log li:first-child { border-top: none; padding-top: 0; }
+      .log li b {
+        font-weight: 500;
+        color: var(--ink);
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 12px;
+        margin-right: 10px;
+      }
+      /* --- footer --- */
+      .meta { margin-top: 56px; font-size: 12.5px; color: var(--faint); letter-spacing: 0.06em; }
       .meta a { color: var(--green); text-decoration: none; }
       .meta a:hover { text-decoration: underline; }
-      @media (max-width: 480px) { h1 { font-size: 42px; } .mark { width: 76px; height: 76px; } }
+      @media (max-width: 480px) { h1 { font-size: 40px; } .mark { width: 72px; height: 72px; } }
     </style>
   </head>
   <body>
@@ -83,14 +135,47 @@
           <rect x="124" y="78.5" width="9" height="13" rx="4.5" />
         </g>
       </svg>
+
       <h1>Cadence</h1>
       <p class="tagline">your reading voice</p>
       <p class="blurb">
-        A personal, offline-first text-to-speech reader for the PDFs, articles and
-        notes you actually want to hear. The voice runs <b>offline, on your Mac</b> —
-        nothing about your reading leaves the machine.
+        An <b>open-source</b>, offline-first text-to-speech reader I'm building for
+        myself. It reads out the PDFs, articles and notes worth hearing — extracted,
+        segmented, synthesized and played back <b>entirely on-device</b>. Nothing
+        about your reading leaves your Mac.
       </p>
-      <hr />
+
+      <div class="sources">
+        <a class="btn primary" href="https://github.com/pragnaykhandelwal-alt/cadence">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          <span><b>cadence</b> — app source</span>
+        </a>
+        <a class="btn" href="https://github.com/pragnaykhandelwal-alt/cadenceaudio">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          <span><b>cadenceaudio</b> — this site</span>
+        </a>
+      </div>
+
+      <section aria-labelledby="built">
+        <h2 id="built">How it's built</h2>
+        <div class="stack">
+          <p><code>React 19</code><code>Vite</code> Reader UI: segmentation engine that re-segments extracted text on the fly, sentence-level skip/seek, karaoke-style word timing.</p>
+          <p><code>Node 20</code><code>Express</code> Local engine server: PDF and article extraction (<code>unpdf</code>, <code>Readability</code>) and a TTS endpoint — the browser never talks to the open internet on your behalf.</p>
+          <p><code>kokoro-js</code> Kokoro-82M neural TTS running as ONNX weights (≈90 MB, downloaded once), fully on-device, with custom pitch × tempo × gap shaping per segment.</p>
+          <p><code>Web Audio API</code> Playback graph with time-preserving seek, per-sentence pre-buffering, and word-accurate highlighting while it speaks.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="log">
+        <h2 id="log">Recent changes</h2>
+        <ul class="log">
+          <li><b>2026-10</b> Landing page opened up as a proper project page — source links, build notes, changelog.</li>
+          <li><b>2026-10</b> Phone layout: the hero "Open in reader" pill now joins the flow instead of colliding with long titles.</li>
+          <li><b>2026-10</b> Logo rebrand — hairline serif "C" in a speech-bubble porthole, with the solid-green voice bars.</li>
+          <li><b>2026-10</b> Project went public: app source and site source published on GitHub; subdomain registration opened with is-a.dev.</li>
+        </ul>
+      </section>
+
       <p class="meta">
         site by <a href="https://github.com/pragnaykhandelwal-alt">@pragnaykhandelwal-alt</a>
         · cadenceaudio.is-a.dev
