@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Cadence — your reading voice</title>
+    <meta name="description" content="Cadence is a private, offline-first text-to-speech reader for the documents and articles you actually want to hear." />
+    <meta name="theme-color" content="#0f0d0b" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='t' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='200' y2='200'%3E%3Cstop offset='0' stop-color='%234CBF82'/%3E%3Cstop offset='1' stop-color='%231E7247'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='200' height='200' rx='48' fill='url(%23t)'/%3E%3Cpath d='M 16 58 A 34 34 0 0 1 50 24 H 150 A 34 34 0 0 1 184 58 V 112 A 34 34 0 0 1 150 146 H 70 C 62 153 46 170 36 181 Q 44 166 50 146 A 34 34 0 0 1 16 112 Z' fill='%2317130f'/%3E%3Ctext x='100' y='124' text-anchor='middle' font-family='Georgia, serif' font-size='112' fill='none' stroke='%23EFF7F1' stroke-width='3.5'%3EC%3C/text%3E%3Cg fill='%234CBF82'%3E%3Crect x='68' y='77' width='9' height='16' rx='4.5'/%3E%3Crect x='82' y='70' width='9' height='30' rx='4.5'/%3E%3Crect x='96' y='80' width='9' height='10' rx='5'/%3E%3Crect x='110' y='67' width='9' height='36' rx='4.5'/%3E%3Crect x='124' y='78.5' width='9' height='13' rx='4.5'/%3E%3C/g%3E%3C/svg%3E" />
+    <style>
+      :root {
+        --bg: #0f0d0b;
+        --tile: #17130f;
+        --ink: #f2ece3;
+        --dim: #b0a496;
+        --green: #4cbf82;
+        --green-deep: #1e7247;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { color-scheme: dark; }
+      body {
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        display: grid;
+        place-items: center;
+        padding: 48px 20px;
+      }
+      .card { text-align: center; max-width: 560px; }
+      .mark { width: 96px; height: 96px; margin-bottom: 28px; }
+      h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 400;
+        font-size: 56px;
+        line-height: 1.05;
+        letter-spacing: 0.01em;
+      }
+      .tagline {
+        margin-top: 14px;
+        font-family: Georgia, serif;
+        font-style: italic;
+        font-size: 21px;
+        color: var(--dim);
+      }
+      .blurb {
+        margin-top: 26px;
+        font-size: 16.5px;
+        line-height: 1.65;
+        color: var(--ink);
+        opacity: 0.88;
+      }
+      .blurb b { font-weight: 600; color: var(--green); }
+      hr {
+        margin: 34px auto;
+        width: 72px;
+        border: none;
+        border-top: 1px solid rgba(242, 236, 227, 0.18);
+      }
+      .meta { font-size: 13px; color: var(--dim); letter-spacing: 0.06em; }
+      .meta a { color: var(--green); text-decoration: none; }
+      .meta a:hover { text-decoration: underline; }
+      @media (max-width: 480px) { h1 { font-size: 42px; } .mark { width: 76px; height: 76px; } }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <svg class="mark" viewBox="0 0 200 200" role="img" aria-label="Cadence logo">
+        <defs>
+          <linearGradient id="tile" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="200" y2="200">
+            <stop offset="0" stop-color="#4CBF82" />
+            <stop offset="1" stop-color="#1E7247" />
+          </linearGradient>
+        </defs>
+        <rect width="200" height="200" rx="48" fill="url(#tile)" />
+        <path d="M 16 58 A 34 34 0 0 1 50 24 H 150 A 34 34 0 0 1 184 58 V 112 A 34 34 0 0 1 150 146 H 70 C 62 153 46 170 36 181 Q 44 166 50 146 A 34 34 0 0 1 16 112 Z" fill="#17130f" />
+        <text x="100" y="124" text-anchor="middle" font-family="Georgia, serif" font-size="112" fill="none" stroke="#EFF7F1" stroke-width="3.5">C</text>
+        <g fill="#4CBF82">
+          <rect x="68" y="77" width="9" height="16" rx="4.5" />
+          <rect x="82" y="70" width="9" height="30" rx="4.5" />
+          <rect x="96" y="80" width="9" height="10" rx="5" />
+          <rect x="110" y="67" width="9" height="36" rx="4.5" />
+          <rect x="124" y="78.5" width="9" height="13" rx="4.5" />
+        </g>
+      </svg>
+      <h1>Cadence</h1>
+      <p class="tagline">your reading voice</p>
+      <p class="blurb">
+        A personal, offline-first text-to-speech reader for the PDFs, articles and
+        notes you actually want to hear. The voice runs <b>offline, on your Mac</b> —
+        nothing about your reading leaves the machine.
+      </p>
+      <hr />
+      <p class="meta">
+        site by <a href="https://github.com/pragnaykhandelwal-alt">@pragnaykhandelwal-alt</a>
+        · cadenceaudio.is-a.dev
+      </p>
+    </main>
+  </body>
+</html>
